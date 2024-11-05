@@ -14,7 +14,7 @@ function preload() {
   data = loadTable('population_data.csv', 'csv', 'header');
 }
 function setup() {
-    canvas = createCanvas(840, 780).parent('canvasContainer'); // map on the <div>
+    canvas = createCanvas(windowWidth, windowHeight).parent('canvasContainer'); // map on the <div>
 
   // Create a tile map and overlay the canvas on top.
   myMap = mappa.tileMap(options);
