@@ -54,10 +54,10 @@ function mapPopulation(){
     let currentLong = data.getString(r, 'longitude');
     let pop = data.getString(r, 'population');
 
-    // Convert latitude and longitude to x and y position
+    // convert latitude and longitude to x and y position
     let pos = myMap.latLngToPixel(currentLat, currentLong);
 
-    // Map population to ellipse size
+    // map population to ellipse size
     let popSize = map(pop, 0, 37000000, 1, 50);
 
     fill(255, 0, 0, 100);
