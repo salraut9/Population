@@ -11,6 +11,7 @@ let myMap;
 let canvas;
 let data;
 let selectedCity = null;  // Stores the clicked city data
+let boxColor = [255, 255, 255, 200];  // Initial box color (white with some transparency)
 
 function preload() {
   data = loadTable('population_data.csv', 'csv', 'header');
@@ -26,12 +27,11 @@ function setup() {
 }
 
 function draw() {
-  textSize(25);
+  textSize(24);
   fill(50);
   textAlign(CENTER, TOP);
   text("Data Visualization 2: Population Map", width / 2, 20);
 
-  // Display the author's name below the title
   textSize(16);
   text("Saloni Raut MM621", width / 2, 50);
 
@@ -60,42 +60,55 @@ function mapPopulation(){
     // map population to ellipse size
     let popSize = map(pop, 0, 37000000, 1, 50);
 
-    fill(255, 0, 0, 100);
+    // random color each ellipse
+    let rColor = random(50, 255);
+    let gColor = random(50, 255);
+    let bColor = random(50, 255);
+
+    fill(rColor, gColor, bColor, 150);  // semi transparent color
     ellipse(pos.x, pos.y, popSize, popSize);
   }
 }
 
-// function to show details of the city when clicked on it
+// function to handle mouse click and display city info
 function mousePressed() {
-  selectedCity = null;  // Clear previous selection
+  selectedCity = null;  // clear previous selection
   for (let r = 0; r < data.getRowCount(); r++) {
     let currentLat = data.getString(r, 'latitude');
     let currentLong = data.getString(r, 'longitude');
     let pos = myMap.latLngToPixel(currentLat, currentLong);
 
     let d = dist(mouseX, mouseY, pos.x, pos.y);
-    if (d <= 10) {  // Increase click radius
+    if (d <= 10) {  // increase click radius
       selectedCity = {
         city: data.getString(r, 'city'),
         country: data.getString(r, 'country'),
         population: data.getString(r, 'population'),
         x: mouseX,
         y: mouseY
-      }
-     }
-   }
+      };
+      
+      // set a new random color for the box when a city is clicked
+      boxColor = [
+        random(50, 255),   
+        random(50, 255),   
+        random(50, 255), 
+        200                // transparency
+      ]
+    }
+  }
 }
 
 // function to display the city information box
 function displayCityInfoBox(city) {
-  // Box dimensions and padding
+  // box dimensions 
   let boxWidth = 200;
   let boxHeight = 80;
   let padding = 10;
 
-  // Draw the background rectangle
-  fill(255, 255, 255, 200);  // semi transparent white
-  stroke(0); 
+  // draw the background rectangle with the random color
+  fill(boxColor);  //  randomly set box color
+  stroke(0);       
   strokeWeight(1);
   rect(city.x, city.y, boxWidth, boxHeight, 8);  // Rounded corners
 
@@ -109,7 +122,7 @@ function displayCityInfoBox(city) {
   text(`Population: ${city.population}`, city.x + padding, city.y + padding + 40);
 }
 
-// Resize canvas on window resize
+// resize canvas on window resize
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
