@@ -109,7 +109,7 @@ function displayCityInfoBox(city) {
   // draw the background rectangle with the random color
   fill(boxColor);  //  randomly set box color
   stroke(0);       
-  strokeWeight(0);
+  strokeWeight(1);
   rect(city.x, city.y, boxWidth, boxHeight, 8);  // Rounded corners
 
   // Display city information text inside the box
