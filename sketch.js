@@ -30,15 +30,15 @@ function draw() {
   textSize(24);
   fill(50);
   textAlign(CENTER, TOP);
-  text("Data Visualization 2: Population Map", width / 2, 20);
+  text("Data Visualization: Population Map", width / 2, 20);
 
   textSize(16);
   text("Saloni Raut MM621", width / 2, 50);
 
-  textSize(16);
+  textSize(13);
   fill(0);
-  textAlign(RIGHT, BOTTOM);
-  text("Click to get data", width - 10, height - 10);
+  textAlign(CENTER, TOP);
+  text("Click on ellipses to get data", width / 2, 70);
 
   // Display selected city data if a city has been clicked
   if (selectedCity) {
